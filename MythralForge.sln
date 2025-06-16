@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Api", "src\MythralForge.Api\MythralForge.Api.csproj", "{B2CBFF8B-C926-4BD6-9C3C-0CF85D3DCB57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Application", "src\MythralForge.Application\MythralForge.Application.csproj", "{CD6BD8CE-49D5-4FF3-B40D-6B44EE3AA329}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Domain", "src\MythralForge.Domain\MythralForge.Domain.csproj", "{986AED8E-FFA9-49A9-BF1B-B5BD101D494E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Infrastructure", "src\MythralForge.Infrastructure\MythralForge.Infrastructure.csproj", "{86A3F66B-BC2D-4454-9A82-47A5D83F7240}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Application.Tests", "tests\MythralForge.Application.Tests\MythralForge.Application.Tests.csproj", "{0B648499-60EC-4AD4-9DD7-237C554C0455}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2CBFF8B-C926-4BD6-9C3C-0CF85D3DCB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2CBFF8B-C926-4BD6-9C3C-0CF85D3DCB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2CBFF8B-C926-4BD6-9C3C-0CF85D3DCB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2CBFF8B-C926-4BD6-9C3C-0CF85D3DCB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD6BD8CE-49D5-4FF3-B40D-6B44EE3AA329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD6BD8CE-49D5-4FF3-B40D-6B44EE3AA329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD6BD8CE-49D5-4FF3-B40D-6B44EE3AA329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD6BD8CE-49D5-4FF3-B40D-6B44EE3AA329}.Release|Any CPU.Build.0 = Release|Any CPU
+		{986AED8E-FFA9-49A9-BF1B-B5BD101D494E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{986AED8E-FFA9-49A9-BF1B-B5BD101D494E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{986AED8E-FFA9-49A9-BF1B-B5BD101D494E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{986AED8E-FFA9-49A9-BF1B-B5BD101D494E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A3F66B-BC2D-4454-9A82-47A5D83F7240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A3F66B-BC2D-4454-9A82-47A5D83F7240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A3F66B-BC2D-4454-9A82-47A5D83F7240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A3F66B-BC2D-4454-9A82-47A5D83F7240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B648499-60EC-4AD4-9DD7-237C554C0455} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD58FED3-8697-4EB7-8B7E-B6DDF5A8A5E5}
+	EndGlobalSection
+EndGlobal
