@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MythralForge.Infrastructure.Persistence
 {
-    public class MythralForgeDbContext : IdentityDbContext
+    public class MythralForgeDbContext : DbContext
     {
         public MythralForgeDbContext(DbContextOptions<MythralForgeDbContext> options) : base(options) {}
     }
