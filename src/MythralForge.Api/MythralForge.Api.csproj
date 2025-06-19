@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.13">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <ProjectReference Include="..\MythralForge.Application\MythralForge.Application.csproj" />
     <ProjectReference Include="..\MythralForge.Domain\MythralForge.Domain.csproj" />
     <ProjectReference Include="..\MythralForge.Infrastructure\MythralForge.Infrastructure.csproj" />

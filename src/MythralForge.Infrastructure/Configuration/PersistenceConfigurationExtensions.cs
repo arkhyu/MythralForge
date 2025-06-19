@@ -19,11 +19,11 @@ public static class PersistenceConfigurationExtensions
                 configuration.GetConnectionString("MythralForgeAuthDb"),
                 ServerVersion.AutoDetect(configuration.GetConnectionString("MythralForgeAuthDb"))
             ));
-                // Add Identity with EF Core stores
-                services.AddIdentity<IdentityUser, IdentityRole>()
-                        .AddEntityFrameworkStores<MythralForgeAuthDbContext>()
-                        .AddDefaultTokenProviders();
-                
+        // Add Identity with EF Core stores
+        services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<MythralForgeAuthDbContext>()
+                .AddDefaultTokenProviders();
+
         return services;
     }
 }
