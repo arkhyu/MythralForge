@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddJwtAuthentication(builder.Configuration)
+    .AddApplicationDependencies()
     .AddPersistence(builder.Configuration)
     .AddConfiguredIdentity();
 
