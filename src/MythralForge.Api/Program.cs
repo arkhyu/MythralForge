@@ -9,7 +9,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddJwtAuthentication(builder.Configuration)
-    .AddPersistence(builder.Configuration);
+    .AddPersistence(builder.Configuration)
+    .AddConfiguredIdentity();
 
 var app = builder.Build();
 
