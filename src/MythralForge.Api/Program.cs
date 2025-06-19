@@ -11,7 +11,8 @@ builder.Services
     .AddJwtAuthentication(builder.Configuration)
     .AddApplicationDependencies()
     .AddPersistence(builder.Configuration)
-    .AddConfiguredIdentity();
+    .AddConfiguredIdentity()
+    .AddAInfrastructureDependencies();
 
 var app = builder.Build();
 

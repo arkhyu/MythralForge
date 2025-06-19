@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-
 public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)

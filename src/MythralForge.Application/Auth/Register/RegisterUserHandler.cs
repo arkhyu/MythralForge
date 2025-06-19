@@ -1,29 +1,16 @@
-using Microsoft.AspNetCore.Identity;
-
 public class RegisterUserHandler
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly IUserService _userService;
 
-    public RegisterUserHandler(UserManager<IdentityUser> userManager)
+    public RegisterUserHandler(IUserService userService)
     {
-        _userManager = userManager;
+        _userService = userService;
     }
 
     public async Task<RegisterUserResult> HandleAsync(RegisterCommand command)
     {
-        var user = new IdentityUser
-        {
-            Email = command.Email,
-            UserName = command.Email
-        };
+        var (success, errors) = await _userService.RegisterUserAsync(command.Email, command.Password);
 
-        var result = await _userManager.CreateAsync(user, command.Password);
-
-        if (!result.Succeeded)
-        {
-            return new RegisterUserResult(false, result.Errors.Select(e => e.Description));
-        }
-
-        return new RegisterUserResult(true);
+        return new RegisterUserResult(success, errors);
     }
 }
