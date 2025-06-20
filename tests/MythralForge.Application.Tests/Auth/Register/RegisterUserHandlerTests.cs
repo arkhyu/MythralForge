@@ -6,7 +6,7 @@ public class RegisterUserHandlerTests
     public async Task HandleAsync_ShouldReturnSuccessResult_WhenUserServiceReturnsSuccess()
     {
         // Arrange
-        var mockUserService = new Mock<IUserService>();
+        var mockUserService = new Mock<IAuthenticationService>();
         var email = "test@example.com";
         var password = "password123";
         var expectedSuccess = true;
@@ -14,7 +14,7 @@ public class RegisterUserHandlerTests
 
         mockUserService
             .Setup(s => s.RegisterUserAsync(email, password))
-            .ReturnsAsync((expectedSuccess, expectedErrors));
+            .ReturnsAsync(new OutcomeResult(expectedSuccess, expectedErrors));
 
         var handler = new RegisterUserHandler(mockUserService.Object);
         var command = new RegisterCommand(email,password);
@@ -32,7 +32,7 @@ public class RegisterUserHandlerTests
     public async Task HandleAsync_ShouldReturnFailureResult_WhenUserServiceReturnsFailure()
     {
         // Arrange
-        var mockUserService = new Mock<IUserService>();
+        var mockUserService = new Mock<IAuthenticationService>();
         var email = "test@example.com";
         var password = "password123";
         var expectedSuccess = false;
@@ -40,7 +40,7 @@ public class RegisterUserHandlerTests
 
         mockUserService
             .Setup(s => s.RegisterUserAsync(email, password))
-            .ReturnsAsync((expectedSuccess, expectedErrors));
+            .ReturnsAsync(new OutcomeResult(expectedSuccess, expectedErrors));
 
         var handler = new RegisterUserHandler(mockUserService.Object);
         var command = new RegisterCommand(email,password);

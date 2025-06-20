@@ -5,6 +5,7 @@ public static class DependencyInjectionExtensions
     {
         // Register your use case handlers here
         services.AddScoped<RegisterUserHandler>();
+        services.AddScoped<LoginHandler>();
         return services;
     }
 }

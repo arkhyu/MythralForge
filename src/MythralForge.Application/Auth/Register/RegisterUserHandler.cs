@@ -1,16 +1,15 @@
 public class RegisterUserHandler
 {
-    private readonly IUserService _userService;
+    private readonly IAuthenticationService _authenticationService;
 
-    public RegisterUserHandler(IUserService userService)
+    public RegisterUserHandler(IAuthenticationService authenticationService)
     {
-        _userService = userService;
+        _authenticationService = authenticationService;
     }
 
-    public async Task<RegisterUserResult> HandleAsync(RegisterCommand command)
+    public async Task<OutcomeResult> HandleAsync(RegisterCommand command)
     {
-        var (success, errors) = await _userService.RegisterUserAsync(command.Email, command.Password);
-
-        return new RegisterUserResult(success, errors);
+        return await _authenticationService.RegisterUserAsync(command.Email, command.Password);
     }
+    
 }
