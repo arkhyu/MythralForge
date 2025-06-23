@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Api", "src\MythralForge.Api\MythralForge.Api.csproj", "{B2CBFF8B-C926-4BD6-9C3C-0CF85D3DCB57}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Application.Tests", "tests\MythralForge.Application.Tests\MythralForge.Application.Tests.csproj", "{0B648499-60EC-4AD4-9DD7-237C554C0455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MythralForge.Integration.Tests", "tests\MythralForge.Integration.Tests\MythralForge.Integration.Tests.csproj", "{4389A754-8BF0-463F-B0B2-7DA6E98AF566}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B648499-60EC-4AD4-9DD7-237C554C0455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4389A754-8BF0-463F-B0B2-7DA6E98AF566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4389A754-8BF0-463F-B0B2-7DA6E98AF566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4389A754-8BF0-463F-B0B2-7DA6E98AF566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4389A754-8BF0-463F-B0B2-7DA6E98AF566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0B648499-60EC-4AD4-9DD7-237C554C0455} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{4389A754-8BF0-463F-B0B2-7DA6E98AF566} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD58FED3-8697-4EB7-8B7E-B6DDF5A8A5E5}
