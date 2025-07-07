@@ -21,15 +21,15 @@ public class LoginHandlerTests
 
         var expectedOutcome = new OutcomeResult(true,new List<string>{"Login successful"});
         _authenticationServiceMock.Setup(service => service.LoginAsync(command.Email, command.Password))
-            .ReturnsAsync(expectedOutcome);
+            .ReturnsAsync((expectedOutcome,"mytoken"));
 
         // Act
         var result = await _loginHandler.HandleAsync(command);
 
         // Assert
         Assert.NotNull(result);
-        Assert.True(result.Success);
-        Assert.Equal("Login successful", result.Errors.First());
+        Assert.True(result.Item1.Success);
+        Assert.Equal("Login successful", result.Item1.Errors.First());
 
         _authenticationServiceMock.Verify(service => service.LoginAsync(command.Email, command.Password), Times.Once);
     }
@@ -44,15 +44,15 @@ public class LoginHandlerTests
 
         var expectedOutcome = new OutcomeResult(false,new List<string>{"Invalid credentials"});
         _authenticationServiceMock.Setup(service => service.LoginAsync(command.Email, command.Password))
-            .ReturnsAsync(expectedOutcome);
+            .ReturnsAsync((expectedOutcome,null));
 
         // Act
         var result = await _loginHandler.HandleAsync(command);
 
         // Assert
         Assert.NotNull(result);
-        Assert.False(result.Success);
-        Assert.Equal("Invalid credentials", result.Errors.First());
+        Assert.False(result.Item1.Success);
+        Assert.Equal("Invalid credentials", result.Item1.Errors.First());
 
         _authenticationServiceMock.Verify(service => service.LoginAsync(command.Email, command.Password), Times.Once);
     }

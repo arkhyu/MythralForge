@@ -2,13 +2,16 @@ using Microsoft.AspNetCore.Identity;
 
 public class AuthenticationService : IAuthenticationService
 {
+    private readonly TokenRepository _tokenRepository;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     public AuthenticationService(UserManager<IdentityUser> userManager,
-    SignInManager<IdentityUser> signInManager)
+    SignInManager<IdentityUser> signInManager,
+    TokenRepository tokenRepository)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        this._tokenRepository = tokenRepository;
     }
 
     public async Task<OutcomeResult> RegisterUserAsync(string email, string password)
@@ -23,20 +26,25 @@ public class AuthenticationService : IAuthenticationService
     }
 
 
-    public async Task<OutcomeResult> LoginAsync(string email, string password)
+    public async Task<(OutcomeResult,string)> LoginAsync(string email, string password)
     {
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null)
         {
-            return new OutcomeResult(false, new List<string> { "User not found." });
+            return (new OutcomeResult(false, new List<string> { "User not found." }),null);
         }
 
         var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
         if (result.Succeeded)
         {
-            return new OutcomeResult(true, null);
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles != null)
+            {
+                var token = _tokenRepository.CreateJWTToken(user, roles.ToList());
+                return (new OutcomeResult(true, null),token);
+            }
         }
 
-        return new OutcomeResult(false, new List<string> { "Invalid credentials." });
+        return (new OutcomeResult(false, new List<string> { "Invalid credentials." }),null);
     }
 }
