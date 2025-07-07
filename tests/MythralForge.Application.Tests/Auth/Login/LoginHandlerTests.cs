@@ -29,6 +29,7 @@ public class LoginHandlerTests
         // Assert
         Assert.NotNull(result);
         Assert.True(result.Item1.Success);
+        Assert.Equal("mytoken",result.Item2);
         Assert.Equal("Login successful", result.Item1.Errors.First());
 
         _authenticationServiceMock.Verify(service => service.LoginAsync(command.Email, command.Password), Times.Once);
@@ -52,6 +53,7 @@ public class LoginHandlerTests
         // Assert
         Assert.NotNull(result);
         Assert.False(result.Item1.Success);
+        Assert.Null(result.Item2);
         Assert.Equal("Invalid credentials", result.Item1.Errors.First());
 
         _authenticationServiceMock.Verify(service => service.LoginAsync(command.Email, command.Password), Times.Once);
