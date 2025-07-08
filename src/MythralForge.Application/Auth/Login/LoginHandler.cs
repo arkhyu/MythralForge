@@ -7,7 +7,7 @@ public class LoginHandler
         _authenticationService = authenticationService;
     }
 
-    public async Task<OutcomeResult> HandleAsync(LoginCommand command)
+    public async Task<(OutcomeResult,string)> HandleAsync(LoginCommand command)
     {
         return await _authenticationService.LoginAsync(command.Email, command.Password);
     }

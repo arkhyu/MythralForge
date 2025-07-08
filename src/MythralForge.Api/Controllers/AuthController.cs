@@ -36,9 +36,12 @@ public class AuthController : ControllerBase
         var command = new LoginCommand(request.Email, request.Password);
         var result = await _loginHandler.HandleAsync(command);
 
-        if (!result.Success)
-            return BadRequest(new { errors = result.Errors });
+        if (!result.Item1.Success)
+            return BadRequest(new { errors = result.Item1.Errors });
 
-        return Ok();
+        return Ok(new LoginResponse
+        { 
+            Token = result.Item2
+        });
     }
 }
