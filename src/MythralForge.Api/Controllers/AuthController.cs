@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MythralForge.Application.Auth.Login;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -36,12 +37,12 @@ public class AuthController : ControllerBase
         var command = new LoginCommand(request.Email, request.Password);
         var result = await _loginHandler.HandleAsync(command);
 
-        if (!result.Item1.Success)
-            return BadRequest(new { errors = result.Item1.Errors });
+        if (!result.IsSuccess)
+            return BadRequest(new { errors = result.Errors });
 
         return Ok(new LoginResponse
         { 
-            Token = result.Item2
+            Token = result.Data
         });
     }
 }

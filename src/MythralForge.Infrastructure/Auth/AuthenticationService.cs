@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using MythralForge.Application.Common;
 
 public class AuthenticationService : IAuthenticationService
 {
@@ -26,12 +27,12 @@ public class AuthenticationService : IAuthenticationService
     }
 
 
-    public async Task<(OutcomeResult,string)> LoginAsync(string email, string password)
+    public async Task<Response<string>> LoginAsync(string email, string password)
     {
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null)
         {
-            return (new OutcomeResult(false, new List<string> { "User not found." }),null);
+            return Response<string>.Failure("User not found.");
         }
 
         var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
@@ -41,10 +42,10 @@ public class AuthenticationService : IAuthenticationService
             if (roles != null)
             {
                 var token = _tokenRepository.CreateJWTToken(user, roles.ToList());
-                return (new OutcomeResult(true, null),token);
+                return Response<string>.Success(token);
             }
         }
 
-        return (new OutcomeResult(false, new List<string> { "Invalid credentials." }),null);
+        return Response<string>.Failure("Invalid credentials.");
     }
 }

@@ -1,4 +1,9 @@
 using Moq;
+using MythralForge.Application.Auth.Login;
+using MythralForge.Application.Common;
+
+namespace MythralForge.Application.Tests.Auth.Login;
+
 public class LoginHandlerTests
 {
     private readonly Mock<IAuthenticationService> _authenticationServiceMock;
@@ -12,49 +17,48 @@ public class LoginHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnOutcomeResult_WhenCalledWithValidCommand()
+    public async Task HandleAsync_ShouldReturnSuccessResponse_WhenCalledWithValidCommand()
     {
         // Arrange
          var email = "test@example.com";
         var password = "password123";
         var command = new LoginCommand(email,password);
 
-        var expectedOutcome = new OutcomeResult(true,new List<string>{"Login successful"});
+        var expectedResponse = Response<string>.Success("mytoken");
         _authenticationServiceMock.Setup(service => service.LoginAsync(command.Email, command.Password))
-            .ReturnsAsync((expectedOutcome,"mytoken"));
+            .ReturnsAsync(expectedResponse);
 
         // Act
         var result = await _loginHandler.HandleAsync(command);
 
         // Assert
         Assert.NotNull(result);
-        Assert.True(result.Item1.Success);
-        Assert.Equal("mytoken",result.Item2);
-        Assert.Equal("Login successful", result.Item1.Errors.First());
+        Assert.True(result.IsSuccess);
+        Assert.Equal("mytoken", result.Data);
 
         _authenticationServiceMock.Verify(service => service.LoginAsync(command.Email, command.Password), Times.Once);
     }
 
     [Fact]
-    public async Task HandleAsync_ShouldReturnFailureOutcomeResult_WhenLoginFails()
+    public async Task HandleAsync_ShouldReturnFailureResponse_WhenLoginFails()
     {
         // Arrange
          var email = "test@example.com";
         var password = "wrongpassword";
         var command = new LoginCommand(email,password);
 
-        var expectedOutcome = new OutcomeResult(false,new List<string>{"Invalid credentials"});
+        var expectedResponse = Response<string>.Failure("Invalid credentials");
         _authenticationServiceMock.Setup(service => service.LoginAsync(command.Email, command.Password))
-            .ReturnsAsync((expectedOutcome,null));
+            .ReturnsAsync(expectedResponse);
 
         // Act
         var result = await _loginHandler.HandleAsync(command);
 
         // Assert
         Assert.NotNull(result);
-        Assert.False(result.Item1.Success);
-        Assert.Null(result.Item2);
-        Assert.Equal("Invalid credentials", result.Item1.Errors.First());
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Data);
+        Assert.Equal("Invalid credentials", result.Errors?.First());
 
         _authenticationServiceMock.Verify(service => service.LoginAsync(command.Email, command.Password), Times.Once);
     }
