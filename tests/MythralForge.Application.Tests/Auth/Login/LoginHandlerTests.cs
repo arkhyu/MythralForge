@@ -11,7 +11,6 @@ public class LoginHandlerTests
 
     public LoginHandlerTests()
     {
-        // Arrange: Mock the IAuthenticationService dependency
         _authenticationServiceMock = new Mock<IAuthenticationService>();
         _loginHandler = new LoginHandler(_authenticationServiceMock.Object);
     }
