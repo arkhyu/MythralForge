@@ -1,4 +1,4 @@
-﻿/*using MythralForge.Integration.Tests.Fixtures;
+﻿using MythralForge.Integration.Tests.Fixtures;
 using System.Net.Http.Json;
 
 namespace MythralForge.Integration.Tests.Auth;
@@ -28,4 +28,4 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
         var content = await response.Content.ReadAsStringAsync();
         Assert.Contains("User registered successfully", content);
     }
-}*/
+}

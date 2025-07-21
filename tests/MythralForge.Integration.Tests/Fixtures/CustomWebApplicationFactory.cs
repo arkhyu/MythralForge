@@ -1,33 +1,31 @@
-﻿/*using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Testcontainers.MsSql;
+using Testcontainers.MySql;
 using MythralForge.Infrastructure.Persistence;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MythralForge.Integration.Tests.Fixtures;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private MsSqlContainer _dbContainer = default!;
-    public string ConnectionString => _dbContainer.GetConnectionString();
+    private readonly MySqlContainer _dbContainer;
+    public CustomWebApplicationFactory()
+    {
+        this._dbContainer = new MySqlBuilder()
+                   .WithImage("mysql:8.0")                
+                   .WithDatabase("testdb")                
+                   .WithUsername("testuser")             
+                   .WithPassword("Test1234!")            
+                   .Build();
 
+    }
     public async Task InitializeAsync()
     {
-        _dbContainer = new MsSqlBuilder()
-            .WithPassword("P@ssword123!")
-            .Build();
-        Console.WriteLine("Starting StartAsync...");
         await _dbContainer.StartAsync();
-        Console.WriteLine("After StartAsync...");
-        using var scope = Services.CreateScope();
-        Console.WriteLine("After scope...");
-        var db = scope.ServiceProvider.GetRequiredService<MythralForgeAuthDbContext>();
-        Console.WriteLine("before migrate ...");
-
-        await db.Database.MigrateAsync();
-        Console.WriteLine("after migrate ...");
     }
 
     public async Task DisposeAsync()
@@ -45,10 +43,9 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
 
             services.AddDbContext<MythralForgeAuthDbContext>(options =>
             options.UseMySql(
-               ConnectionString,
-                ServerVersion.AutoDetect(ConnectionString)
+               "Server=localhost;Port=3306;Database=testdb;User Id=testuser;Password=Test1234!;",
+                ServerVersion.AutoDetect("Server=localhost;Port=3306;Database=testdb;User Id=testuser;Password=Test1234!;")
             ));
         });
     }
 }
-*/
