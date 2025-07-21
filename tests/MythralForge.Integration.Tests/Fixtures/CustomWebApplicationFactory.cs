@@ -42,10 +42,16 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             if (descriptor != null) services.Remove(descriptor);
 
             services.AddDbContext<MythralForgeAuthDbContext>(options =>
-            options.UseMySql(
-               "Server=localhost;Port=3306;Database=testdb;User Id=testuser;Password=Test1234!;",
-                ServerVersion.AutoDetect("Server=localhost;Port=3306;Database=testdb;User Id=testuser;Password=Test1234!;")
-            ));
+            {
+                var connectionString = _dbContainer.GetConnectionString();
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            });
+
+            // Ensure the database is created and migrations are applied
+            var sp = services.BuildServiceProvider();
+            using var scope = sp.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<MythralForgeAuthDbContext>();
+            dbContext.Database.Migrate();
         });
     }
 }

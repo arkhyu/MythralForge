@@ -21,7 +21,7 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
             ConfirmPassword = "P@ssw0rd123!"
         };
 
-        var response = await _client.PostAsJsonAsync("/register", request);
+        var response = await _client.PostAsJsonAsync("/api/auth/register", request);
 
         response.EnsureSuccessStatusCode();
 
