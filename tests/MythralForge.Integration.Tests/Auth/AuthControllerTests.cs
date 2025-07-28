@@ -9,6 +9,8 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
+    private readonly string  REGISTER_URL = "/api/auth/register";
+    private readonly string  LOGIN_URL = "/api/auth/login";
     public AuthControllerTests(CustomWebApplicationFactory factory)
     {
         _client = factory.CreateClient();
@@ -17,14 +19,14 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Register_ReturnsOk_WhenUserIsValid()
     {
-        var request = new
+        var request = new RegisterRequest()
         {
             Email = "testuser@example.com",
             Password = "P@ssw0rd123!",
             ConfirmPassword = "P@ssw0rd123!"
         };
 
-        var response = await _client.PostAsJsonAsync("/api/auth/register", request);
+        var response = await _client.PostAsJsonAsync(REGISTER_URL, request);
 
         response.EnsureSuccessStatusCode();
 
@@ -35,14 +37,14 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Register_ReturnsError_WhenPasswordDoesNotMatch()
     {
-        var request = new
+        var request = new RegisterRequest()
         {
             Email = "baduser@example.com",
             Password = "P@ssw0rd12!",
             ConfirmPassword = "P@ssw0rd123!"
         };
 
-        var response = await _client.PostAsJsonAsync("/api/auth/register", request);
+        var response = await _client.PostAsJsonAsync(REGISTER_URL, request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -60,7 +62,7 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
     public async Task Register_ReturnsBadRequest_WhenPasswordPolicyIsViolated(string badPassword)
     {
         // Arrange
-        var request = new
+        var request = new RegisterRequest()
         {
             Email = $"user_{Guid.NewGuid()}@example.com",
             Password = badPassword,
@@ -68,7 +70,7 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
         };
 
         // Act
-        var response = await _client.PostAsJsonAsync("/api/auth/register", request);
+        var response = await _client.PostAsJsonAsync(REGISTER_URL, request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -80,13 +82,13 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Login_ReturnsError_WhenIncorrectCredentials()
     {
-        var request = new
+        var request = new LoginRequest()
         {
             Email = "notReregisteredUser@example.com",
             Password = "P@ssw0rd12NotExist!"
         };
 
-        var response = await _client.PostAsJsonAsync("/api/auth/login", request);
+        var response = await _client.PostAsJsonAsync(LOGIN_URL, request);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -99,14 +101,14 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
     [Fact]
     public async Task Login_ReturnsOk_WhenValidCredentials()
     {
-        var requestRegister = new
+        var requestRegister = new RegisterRequest()
         {
             Email = "testuser2@example.com",
             Password = "P@ssw0rd1232!",
             ConfirmPassword = "P@ssw0rd1232!"
         };
 
-        _ = await _client.PostAsJsonAsync("/api/auth/register", requestRegister);
+        _ = await _client.PostAsJsonAsync(REGISTER_URL, requestRegister);
 
         var request = new
         {
@@ -114,7 +116,7 @@ public class AuthControllerTests : IClassFixture<CustomWebApplicationFactory>
             Password = "P@ssw0rd1232!"
         };
 
-        var response = await _client.PostAsJsonAsync("/api/auth/login", request);
+        var response = await _client.PostAsJsonAsync(LOGIN_URL, request);
 
         response.EnsureSuccessStatusCode();
 
